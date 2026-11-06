@@ -48,9 +48,13 @@ p{margin:0;line-height:1.6}
 .say{display:flex;gap:10px;align-items:center;min-height:64px}
 .mas{font-size:44px;line-height:1}
 #msg{position:relative;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:10px 14px;font-size:16px;line-height:1.5;flex:1}
-.houses{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.houses{display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:10px}
 .house{border:0;border-radius:20px 20px 10px 10px;color:var(--on);padding:12px 4px 12px;font:inherit;font-size:18px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:116px;position:relative;text-align:center}
-.house small{font-size:12px;font-weight:400;opacity:.95;line-height:1.3}
+.house small{font-size:13px;font-weight:400;opacity:.95;line-height:1.3}
+.nm{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:1px}
+.house.zt{min-height:140px;padding-top:14px}
+.house.zt .nm{font-size:34px;letter-spacing:0}
+.house.zt .em{font-size:44px}
 .em{font-size:38px;line-height:1.1}
 .house:focus-visible,.btn:focus-visible,.snd:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .house.sm{background:var(--sm)}.house.ym{background:var(--ym)}.house.zt{background:var(--zt)}
@@ -86,9 +90,9 @@ p{margin:0;line-height:1.6}
   <div class="top"><h1>森林里的拼音宝宝</h1><button class="snd" id="snd1" aria-label="声音开关">🔊</button></div>
   <p>小探险家走进大森林，发现好多拼音宝宝迷路了。帮它们找到自己的小屋，送它们回家吧！</p>
   <div class="houses">
-    <div class="house sm"><span class="em">🍄</span>蘑菇屋<small>声母 · 小伙伴<br>23 个</small></div>
-    <div class="house ym"><span class="em">🌳</span>大树屋<small>韵母 · 大嗓门<br>6 个</small></div>
-    <div class="house zt"><span class="em">⛺</span>帐篷<small>整体认读<br>一家人不拆开<br>10 个</small></div>
+    <div class="house sm"><span class="em">🍄</span><span class="nm">声母</span><small>小伙伴<br>23 个</small></div>
+    <div class="house ym"><span class="em">🌳</span><span class="nm">韵母</span><small>大嗓门<br>6 个</small></div>
+    <div class="house zt"><span class="em">⛺</span><span class="nm">整体认读</span><small>一家人不拆开<br>10 个</small></div>
   </div>
   <button class="btn main" data-mode="all" data-story="1">开始探险！送 10 个宝宝</button>
   <button class="btn" data-mode="zt" data-story="1">重点送整体认读宝宝</button>
@@ -113,9 +117,9 @@ p{margin:0;line-height:1.6}
   </div>
   <div class="say"><span class="mas" id="mas">👦</span><p id="msg"></p></div>
   <div class="houses">
-    <button class="house sm" data-k="sm"><span class="em">🍄</span>蘑菇屋<small>声母</small></button>
-    <button class="house ym" data-k="ym"><span class="em">🌳</span>大树屋<small>韵母</small></button>
-    <button class="house zt" data-k="zt"><span class="em">⛺</span>帐篷<small>整体认读</small></button>
+    <button class="house sm" data-k="sm"><span class="em">🍄</span><span class="nm">声母</span><small>小伙伴</small></button>
+    <button class="house ym" data-k="ym"><span class="em">🌳</span><span class="nm">韵母</span><small>大嗓门</small></button>
+    <button class="house zt" data-k="zt"><span class="em">⛺</span><span class="nm">整体认读</span><small>一家人不拆开</small></button>
   </div>
 </section>
 
@@ -234,7 +238,7 @@ function build(s){
 }
 
 var q=[],i=0,right=0,wrongs=[],learn=false,locked=false,cur="",streak=0,pend="all",sp=0;
-var PANELS=[["🌲👦🎒","周末，小探险家背起背包，走进了神秘的大森林。"],["🥺🥺🥺","咦？树丛里传来哭声。原来是一群拼音宝宝，迷路啦！"],["🍄🌳⛺","森林里有三间小屋：蘑菇屋住声母，大树屋住韵母，帐篷住整体认读。帮宝宝们找到自己的家吧！"]];
+var PANELS=[["🌲👦🎒","周末，小探险家背起背包，走进了神秘的大森林。"],["🥺🥺🥺","咦？树丛里传来哭声。原来是一群拼音宝宝，迷路啦！"],["🍄🌳⛺","森林里有三间小屋，分别住着声母、韵母和整体认读。帮宝宝们找到自己的家吧！"]];
 var NARR={0:"森林好安静……咦，前面有个拼音宝宝在哭！",3:"过了小溪，又有宝宝迷路了！",6:"天色暗下来，萤火虫亮起来啦，快送宝宝们回家！",9:"最后一个宝宝！送完我们就能回营地了。"};
 var PRAISE={3:"连对 3 个，探险家真棒！",5:"连对 5 个，太厉害啦！",8:"连对 8 个，整个森林都在为你鼓掌！"};
 function storyShow(){$("sbig").textContent=PANELS[sp][0];$("stext").textContent=PANELS[sp][1];$("snext").textContent=sp===PANELS.length-1?"出发！":"继续"}
